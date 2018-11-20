@@ -542,9 +542,14 @@ def convert(rMat, to ='quat'):
     R32 = rMat[7]
     R33 = rMat[8]
     
-    q[1] = 0.5 * np.copysign(np.sqrt(1+R11-R22-R33), R32-R23)
-    q[2] = 0.5 * np.copysign(np.sqrt(1-R11+R22-R33), R13-R31)
-    q[3] = 0.5 * np.copysign(np.sqrt(1-R11-R22+R33), R21-R12)
+    # Catch small numerical inaccuracies, but produce an error for larger problems
+    epsilon = 1e-10
+    if np.min(np.vstack((1+R11-R22-R33, 1-R11+R22-R33, 1-R11-R22+R33))) < -epsilon:
+        raise ValueError('Problems with defintion of rotation matrices')
+    
+    q[1] = 0.5 * np.copysign(np.sqrt(np.abs(1+R11-R22-R33)), R32-R23)
+    q[2] = 0.5 * np.copysign(np.sqrt(np.abs(1-R11+R22-R33)), R13-R31)
+    q[3] = 0.5 * np.copysign(np.sqrt(np.abs(1-R11-R22+R33)), R21-R12)
     q[0] = np.sqrt(1-(q[1]**2+q[2]**2+q[3]**2))
     
     return q.T

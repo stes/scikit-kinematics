@@ -9,6 +9,7 @@ import unittest
 
 dir_name = os.path.dirname(__file__)
 sys.path.append(os.path.realpath(os.path.join(dir_name, "..")))
+print(os.path.realpath(os.path.join(dir_name, "..")))
 import vector, quat
 
 class TestSequenceFunctions(unittest.TestCase):

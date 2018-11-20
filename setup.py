@@ -4,7 +4,9 @@ setup(
     name='scikit-kinematics',
     version="0.7.7",
     python_requires='>=3.5',
-    packages=find_packages(),
+    packages=find_packages(where='skinematics'),
+    package_dir={'': 'skinematics'},
+
 
     include_package_data=True,
     package_data = {'tests': ['*.txt', '*.csv', '*.BIN']},

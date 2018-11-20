@@ -2,7 +2,7 @@
 "scikit-kinematics" primarily contains functions for working with 3D kinematics. (i.e.
 quaternions and rotation matrices).
 
-Compatible Python 3.
+Compatible with Python >=3.5
 
 Dependencies
 ------------
